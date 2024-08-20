@@ -9,7 +9,7 @@ public class GameMenu {
 	private int choice;
 	
 	// 기본 생성자
-	public GameMenu() {};
+	public GameMenu() {}
 	
 	// 시작화면
 	public void gameStart() {
@@ -154,8 +154,7 @@ public class GameMenu {
 		
 		// 행동 선택지
 		while(true) {
-			System.out.println("============ 행동 ============");
-			System.out.println("[1. 나아간다.]");
+			System.out.println("[1. 나아간다]");
 			System.out.println("[2. 플레이어 정보]");
 			System.out.println("[3. 소지 아이템]");
 			System.out.println("[4. 게임 종료]");
@@ -166,7 +165,8 @@ public class GameMenu {
 			
 			switch(choice) {
 			case 1 :
-				break;
+				stageMenu();
+				return;
 			case 2 :
 				playerMenu();
 				return;
@@ -180,6 +180,51 @@ public class GameMenu {
 				System.out.println("▷ 잘못된 입력입니다. 다시 입력해주세요.\n");
 			}
 		}
+	}
+	
+	// 메인 1 - 스테이지 진행
+	public void stageMenu() {
+		if(gc.stageProgress()) {
+			// 전투진행
+		}
+		else {
+			System.out.println("\n********** 휴식 **********");
+			System.out.println("▷ 안전한 공간을 발견했습니다.");
+			
+			do {
+				System.out.println("[1. 휴식을 취한다. ( HP +10 )]");
+				System.out.println("[2. 주변을 둘러본다. ( 랜덤 확률로 아이템 획득 )");
+				
+				System.out.print("▶ 행동 선택 : ");
+				choice = sc.nextInt();
+				sc.nextLine();
+				
+				switch(choice) {
+				case 1 :
+					gc.stageRecovery();
+					break;
+				case 2 :
+					gc.stageItem();
+					break;
+				default :
+					System.out.println("▷ 잘못된 입력입니다. 다시 선택해주세요.\n");
+					continue;
+				}
+				
+				choice = 0;
+			} while(choice != 0);
+		}
+		
+		System.out.print("▶ 다음 층으로 이동 (아무 키나 누르세요) : ");
+		sc.nextLine();
+		
+		gc.stageUp();
+		playGame();
+	}
+	
+	// 메인 1.5 - 전투
+	public void battleMenu() {
+		System.out.println("\n********** Battle **********");
 	}
 	
 	// 메인 2 - 스테이터스
@@ -258,7 +303,7 @@ public class GameMenu {
 		}
 	}
 	
-	// 게임 종료
+	// 메인 4 - 게임 종료
 	public void gameStop() {
 		System.out.println("\n▷ 게임을 종료하시겠습니까?");
 		System.out.println("[1. 예]");

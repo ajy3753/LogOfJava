@@ -2,15 +2,17 @@ package logOfJava;
 
 import java.io.File;
 import java.util.List;
+import java.util.Scanner;
 
 public class GameController {
 	// 암튼 그거다.
-	Game g = new Game();
-	private Player player = new Player();
+	private Game g;
+	private Player player;
 	private ItemController ic = new ItemController();
+	private Scanner sc = new Scanner(System.in);
 	
 	// 기본 생성자
-	public GameController() {};
+	public GameController() {}
 	
 	// 새 게임 데이터 생성
 	public void newData(String playerName, String job) {
@@ -32,6 +34,50 @@ public class GameController {
 		System.out.println("< " + player.getPlayerName() + " - " + player.getJob().getJob() + " >");
 		System.out.println("HP : " + player.getHP() + " / " + player.getJob().getJobHP());
 		System.out.println("현재 층수 : " + g.getStage());
+	}
+	
+	// 스테이지 진행
+	public boolean stageProgress() {
+		// 전투 판별
+		int battleOn = (int)(Math.random() * 100 + 1);
+		if(battleOn < player.getLUCK()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	// 전투 진행
+	public void stageBattle() {
+		
+	}
+	
+	// 휴식 1 - 체력 회복
+	public void stageRecovery() {
+		int max = player.getJob().getJobHP();
+		if(max == player.getHP()) {
+			System.out.println("\n▷ 이미 HP가 가득한 상태입니다.\n");
+		}
+		else if(max <= (player.getHP() + 10)) {
+			System.out.println("\n▷ HP가 전부 회복되었습니다.\n");
+			player.setHP(max);
+		}
+		else {
+			System.out.println("\n▷ HP가 10 회복되었습니다.");
+			System.out.println("▷ 현재 HP : " + player.getHP() + " / " + max + "\n");
+			player.setHP(player.getHP() + 10);
+		}
+	}	
+	
+	// 휴식 2 - 아이템 획득
+	public void stageItem() {
+		if(itemListSize() >= 5) {
+			System.out.println("▷ 소지 가능한 아이템 수를 초과하여 더 얻을 수 없습니다.\n");
+		}
+		else {
+			int dropRate = (int)(Math.random() * 100 + 1);
+		}
 	}
 	
 	// 플레이어 스테이터스
@@ -93,5 +139,10 @@ public class GameController {
 	// player 정보 반환
 	public Player getPlayer() {
 		return this.player;
+	}
+	
+	// stage 이동
+	public void stageUp() {
+		g.setStage(g.getStage() + 1);
 	}
 }

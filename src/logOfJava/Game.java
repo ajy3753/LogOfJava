@@ -4,27 +4,26 @@ public class Game {
 	private int stage;
 	
 	// 기본 생성자
-	public Game() {};
+	public Game() {}
 	
 	public Game(Player player, int stage) {
 		this.player = player;
 		this.stage = stage;
 	}
-	
-	// getter
+
+	// getter, setter
 	public Player getPlayer() {
-		return this.player;
+		return player;
 	}
-	
-	public int getStage() {
-		return this.stage;
-	}
-	
-	// setter
+
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	
+
+	public int getStage() {
+		return stage;
+	}
+
 	public void setStage(int stage) {
 		this.stage = stage;
 	}

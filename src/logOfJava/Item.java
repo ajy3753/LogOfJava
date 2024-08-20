@@ -1,6 +1,6 @@
 package logOfJava;
 
-public class Items {
+public class Item {
 	// Items 변수
 	public String itemName;
 	public String itemFlavor;
@@ -9,9 +9,9 @@ public class Items {
 	public int itemEffect;
 	
 	// 기본 생성자
-	public Items() {};
+	public Item() {}
 	
-	public Items(String itemName, String itemFlavor, String itemInfo, String itemCtg, int itemEffect) {
+	public Item(String itemName, String itemFlavor, String itemInfo, String itemCtg, int itemEffect) {
 		super();
 		this.itemName = itemName;
 		this.itemFlavor = itemFlavor;

@@ -15,7 +15,7 @@ public class Player {
 	private List<String> itemList = new ArrayList<>(5);
 	
 	// 기본 생성자
-	public Player() {};
+	public Player() {}
 	
 	// 캐릭터 생성
 	public Player(String playerName, Job job) {
