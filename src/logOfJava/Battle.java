@@ -15,7 +15,7 @@ public class Battle {
 	private int turn;
 	private int dice;
 	private int choice;
-	private String battleOn = "OFF";
+	private boolean battleOn = false;
 	
 	// 기본 생성자
 	public Battle() {}
@@ -30,7 +30,7 @@ public class Battle {
 			enemyList = mc.bossBattle(player);
 		}
 		this.turn = 1;
-		this.battleOn = "ON";
+		this.battleOn = true;
 	}
 	
 	// 전투 시작
@@ -75,11 +75,11 @@ public class Battle {
 	}
 
 	// getter, setter
-	public String getBattleOn() {
+	public boolean isBattleOn() {
 		return battleOn;
 	}
 
-	public void setBattleOn(String battleOn) {
+	public void setBattleOn(boolean battleOn) {
 		this.battleOn = battleOn;
 	}
 }

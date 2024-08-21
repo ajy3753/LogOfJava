@@ -50,6 +50,9 @@ public class GameController {
 	
 	// 전투 진행
 	public void stageBattle() {
+		// 몹불러오기
+		
+		// 공격 커맨드 띄우기
 		
 	}
 	
@@ -94,11 +97,11 @@ public class GameController {
 		System.out.println("직업 : " + player.getJob().getJob());
 		System.out.println("소지 아이템 수 : " + player.getItemList().size());
 		System.out.println("============ 상세 스테이터스 ============");
-		System.out.print("체력\t" + player.getJob().getJobHP() + "\t\t");
+		System.out.print("체력\t" + player.getHP() + " / " + player.getJob().getJobHP() + "\t\t");
 		System.out.println("행운\t" + player.getLUCK());
-		System.out.print("근력\t" + player.getATK() + "\t\t");
+		System.out.print("근력 \t" + player.getATK() + "\t\t\t");
 		System.out.println("보너스\t" + player.getBONUS());
-		System.out.println("지능\t" + player.getINT() + "\n");
+		System.out.println("지능 \t" + player.getINT() + "\n");
 	}
 	
 	// 플레이어명 수정

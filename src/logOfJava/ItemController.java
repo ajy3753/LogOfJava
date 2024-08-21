@@ -72,6 +72,7 @@ public class ItemController {
 			
 			if(max > (player.getHP() + recovery)) {
 				player.setHP(player.getHP() + recovery);
+				System.out.println("\n▷" + itemList.get(index).itemName + "을(를) 사용했습니다.");
 			}
 			else if(max == player.getHP()) {
 				System.out.println("\n▷ 이미 HP가 가득찬 상태이므로 아이템을 사용할 수 없습니다.");
@@ -84,7 +85,7 @@ public class ItemController {
 			break;
 		case "전투" :
 			// 전투 상황이 아니면 사용 불가능하게 설정
-			if(new Battle().getBattleOn().equals("ON")) {
+			if(new Battle().isBattleOn()) {
 				// 전투 중 > 적에게 사용
 			}
 			else {

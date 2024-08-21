@@ -225,6 +225,9 @@ public class GameMenu {
 	// 메인 1.5 - 전투
 	public void battleMenu() {
 		System.out.println("\n********** Battle **********");
+		// 배틀 시작
+		// 15층 이하는 일반 몹 불러오기
+		gc.stageBattle();
 	}
 	
 	// 메인 2 - 스테이터스
