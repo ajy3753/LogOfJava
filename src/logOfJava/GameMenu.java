@@ -269,7 +269,7 @@ public class GameMenu {
 		int itemListSize = gc.itemListSize();
 		
 		if(itemListSize == 0) {
-			System.out.println("▷ 소지중인 아이템이 없습니다. 메인으로 돌아갑니다.");
+			System.out.println("\n▷ 소지중인 아이템이 없습니다. 메인으로 돌아갑니다.");
 			playGame();
 		}
 		else {
@@ -327,11 +327,11 @@ public class GameMenu {
 				System.out.println("▷ 저장 완료되었습니다.");
 			}
 			
-			System.out.println("▷ 게임을 종료합니다.");
+			System.out.println("\n▷ 게임을 종료합니다.");
 			return;
 		}
 		else {
-			System.out.println("▷ 메인으로 돌아갑니다.");
+			System.out.println("\n▷ 메인으로 돌아갑니다.");
 			playGame();
 			return;
 		}

@@ -42,7 +42,7 @@ public class ItemController {
 	public String itemDetailPrint(String item) {
 		int index = itemIndexReturn(item);
 		if(index == 404) {
-			return "▷ 아이템 정보를 불러오는데 실패했습니다.\n";
+			return "\n▷ 아이템 정보를 불러오는데 실패했습니다.\n";
 		}
 		else {
 			return itemList.get(index).toString();
@@ -70,20 +70,27 @@ public class ItemController {
 			int max = player.getJob().getJobHP();
 			int recovery = itemEffectReturn(index);
 			
-			if(max == player.getHP()) {
-				System.out.println("▷ 이미 HP가 가득찬 상태이므로 아이템을 사용할 수 없습니다.\n");
+			if(max > (player.getHP() + recovery)) {
+				player.setHP(player.getHP() + recovery);
+			}
+			else if(max == player.getHP()) {
+				System.out.println("\n▷ 이미 HP가 가득찬 상태이므로 아이템을 사용할 수 없습니다.");
 				return false;
 			}
-			else if(max <= (player.getHP() + recovery)) {
-				player.setHP(max);
-				System.out.println("▷ HP가 전부 회복되었습니다.\n");
-			}
 			else {
-				player.setHP(player.getHP() + recovery);
+				player.setHP(max);
+				System.out.println("\n▷ HP가 전부 회복되었습니다.");
 			}
 			break;
 		case "전투" :
 			// 전투 상황이 아니면 사용 불가능하게 설정
+			if(new Battle().getBattleOn().equals("ON")) {
+				// 전투 중 > 적에게 사용
+			}
+			else {
+				System.out.println("\n▷ 전투 중에만 사용 가능한 아이템입니다.");
+				return false;
+			}
 			break;
 		default :
 			itemReinforce(itemIndexReturn(item), ctg, player);
@@ -94,7 +101,8 @@ public class ItemController {
 	}
 	
 	// 강화 아이템 전용
-	public boolean itemReinforce(int index, String ctg, Player player) {
+	public boolean itemReinforce(int index, String ctg, Player pl) {
+		Player player = pl;
 		String ctgArr[] = ctg.split("/");
 		int reinforce = itemEffectReturn(index);
 		int addStat = 0;
@@ -103,25 +111,44 @@ public class ItemController {
 		case "HP" :
 			addStat = player.getJob().getJobHP() + reinforce;
 			player.setHP(addStat);
+			System.out.println("\n▷ 최대 체력이 " + reinforce + "만큼 상승되었습니다.");
 			break;
 		case "ATK" :
 			addStat = player.getJob().getJobATK() + reinforce;
 			player.setATK(addStat);
+			System.out.println("\n▷ 근력이 " + reinforce + "만큼 상승되었습니다.");
 			break;
 		case "INT" :
 			addStat = player.getJob().getJobINT() + reinforce;
 			player.setINT(addStat);
+			System.out.println("\n▷ 지능이 " + reinforce + "만큼 상승되었습니다.");
 			break;
 		case "LUCK" :
 			addStat = player.getJob().getJobLUCK() + reinforce;
 			player.setLUCK(addStat);
+			System.out.println("\n▷ 행운이 " + reinforce + "만큼 상승되었습니다.");
 			break;
 		default :
 			addStat = player.getJob().getJobBONUS() + reinforce;
 			player.setBONUS(addStat);
+			System.out.println("\n▷ 아이템 드롭률(보너스)가 " + reinforce + "만큼 상승되었습니다.");
 			break;
 		}
 		
 		return true;
+	}
+	
+	// 랜덤 아이템 획득
+	public void itemDrop(Player pl, int dropStock) {
+		Player player = pl;
+		List playerItem = player.getItemList();
+		
+		for(int i = 0; i < dropStock; i++) {
+			int random = (int)(Math.random() * itemList.size() + 0);
+			playerItem.add(itemList.get(random).itemName);
+			System.out.println("▷ 아이템 < " + itemList.get(random).itemName + " > 을(를) 획득했습니다.\n");
+		}
+		
+		player.setItemList(playerItem);
 	}
 }

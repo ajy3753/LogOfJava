@@ -27,6 +27,8 @@ public class Player {
 		LUCK = job.getJobLUCK();
 		BONUS = job.getJobBONUS();
 		itemList.add("시작의 주먹밥");
+		itemList.add("수맥봉");
+		itemList.add("쥐덫");
 	}
 	
 	// 캐릭터 불러오기
@@ -62,7 +64,7 @@ public class Player {
 	}
 
 	public void setHP(int HP) {
-		HP = HP;
+		this.HP = HP;
 	}
 
 	public int getATK() {
@@ -70,7 +72,7 @@ public class Player {
 	}
 
 	public void setATK(int ATK) {
-		ATK = ATK;
+		this.ATK = ATK;
 	}
 
 	public int getINT() {
@@ -78,7 +80,7 @@ public class Player {
 	}
 
 	public void setINT(int INT) {
-		INT = INT;
+		this.INT = INT;
 	}
 
 	public int getLUCK() {
@@ -86,7 +88,7 @@ public class Player {
 	}
 
 	public void setLUCK(int LUCK) {
-		LUCK = LUCK;
+		this.LUCK = LUCK;
 	}
 
 	public int getBONUS() {
@@ -94,7 +96,7 @@ public class Player {
 	}
 
 	public void setBONUS(int BONUS) {
-		BONUS = BONUS;
+		this.BONUS = BONUS;
 	}
 
 	public List getItemList() {

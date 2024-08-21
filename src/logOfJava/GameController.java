@@ -55,12 +55,13 @@ public class GameController {
 	
 	// 휴식 1 - 체력 회복
 	public void stageRecovery() {
+		System.out.println("\n▷ 휴식을 취합니다.");
 		int max = player.getJob().getJobHP();
 		if(max == player.getHP()) {
-			System.out.println("\n▷ 이미 HP가 가득한 상태입니다.\n");
+			System.out.println("▷ 이미 HP가 가득한 상태이므로 HP가 회복되지 않았습니다.\n");
 		}
 		else if(max <= (player.getHP() + 10)) {
-			System.out.println("\n▷ HP가 전부 회복되었습니다.\n");
+			System.out.println("▷ HP가 전부 회복되었습니다.\n");
 			player.setHP(max);
 		}
 		else {
@@ -72,11 +73,18 @@ public class GameController {
 	
 	// 휴식 2 - 아이템 획득
 	public void stageItem() {
+		System.out.println("\n▷ 근처에서 괜찮은 아이템을 찾아봅니다.");
 		if(itemListSize() >= 5) {
-			System.out.println("▷ 소지 가능한 아이템 수를 초과하여 더 얻을 수 없습니다.\n");
+			System.out.println("▷ 이런! 소지 가능한 아이템 수를 초과하여 더 얻을 수 없습니다.\n");
 		}
 		else {
 			int dropRate = (int)(Math.random() * 100 + 1);
+			if((100 - dropRate) <= player.getBONUS()) {
+				ic.itemDrop(player, 1);
+			}
+			else {
+				System.out.println("▷ 아무 것도 발견하지 못했습니다...\n");
+			}
 		}
 	}
 	
@@ -87,10 +95,10 @@ public class GameController {
 		System.out.println("소지 아이템 수 : " + player.getItemList().size());
 		System.out.println("============ 상세 스테이터스 ============");
 		System.out.print("체력\t" + player.getJob().getJobHP() + "\t\t");
-		System.out.println("행운\t" + player.getJob().getJobLUCK());
-		System.out.print("근력\t" + player.getJob().getJobATK() + "\t\t");
-		System.out.println("보너스\t" + player.getJob().getJobBONUS());
-		System.out.println("지능\t" + player.getJob().getJobINT() + "\n");
+		System.out.println("행운\t" + player.getLUCK());
+		System.out.print("근력\t" + player.getATK() + "\t\t");
+		System.out.println("보너스\t" + player.getBONUS());
+		System.out.println("지능\t" + player.getINT() + "\n");
 	}
 	
 	// 플레이어명 수정
@@ -132,8 +140,9 @@ public class GameController {
 		
 		if(ic.itemUsing(player, itemName)) {
 			itemList.remove(itemIndex);
-			System.out.println("▷ 아이템 사용을 완료했습니다. 메인으로 돌아갑니다.");
 		}
+		
+		player.setItemList(itemList);
 	}
 	
 	// player 정보 반환
