@@ -23,17 +23,17 @@ public class GameMenu {
 		
 		switch(choice) {
 		case 1 :
-			System.out.println("▷ 캐릭터 생성으로 이동합니다.");
+			System.out.println("\n▷ 캐릭터 생성으로 이동합니다.");
 			newGame();
 			break;
 		case 2 :
 			loadGame();
 			break;
 		case 3 :
-			System.out.println("▷ 게임을 종료합니다.");
+			System.out.println("\n▷ 게임을 종료합니다.");
 			return;
 		default :
-			System.out.println("▷ 잘못된 입력입니다. 처음으로 돌아갑니다.\n");
+			System.out.println("\n▷ 잘못된 입력입니다. 처음으로 돌아갑니다.\n");
 			gameStart();
 		}
 	}
@@ -46,7 +46,7 @@ public class GameMenu {
 		String playerName = sc.next();
 		sc.nextLine();
 		
-		System.out.println("▷ 입력한 플레이어명은 < " + playerName + " >입니다.");
+		System.out.println("\n▷ 입력한 플레이어명은 < " + playerName + " >입니다.");
 		System.out.println("▷ 다음으로 직업을 선택해주세요.");
 		
 		String job = "";
@@ -185,7 +185,8 @@ public class GameMenu {
 	// 메인 1 - 스테이지 진행
 	public void stageMenu() {
 		if(gc.stageProgress()) {
-			// 전투진행
+			battleMenu();
+			return;
 		}
 		else {
 			System.out.println("\n********** 휴식 **********");
@@ -226,8 +227,37 @@ public class GameMenu {
 	public void battleMenu() {
 		System.out.println("\n********** Battle **********");
 		// 배틀 시작
-		// 15층 이하는 일반 몹 불러오기
-		gc.stageBattle();
+		// true > 승리, false > 패배
+		if(gc.stageBattle()) {
+			if(gc.getStage() == 15) {
+				
+			}
+			else {
+				System.out.print("▶ 다음 층으로 이동 (아무 키나 누르세요) : ");
+				sc.nextLine();
+				
+				gc.stageUp();
+				playGame();
+				return;
+			}
+		}
+		else {
+			System.out.println("\n▷ 다시 도전하시겠습니까?");
+			System.out.println("[1. 예]");
+			System.out.println("[2. 아니오]");
+			
+			System.out.print("▶ 선택 : ");
+			choice = sc.nextInt();
+			sc.nextLine();
+			
+			if(choice == 1) {
+				System.out.println("\n▷ 새 캐릭터 생성으로 이동합니다.");
+				newGame();
+			}
+			
+			System.out.println("\n▷ 게임을 종료합니다. 플레이 해주셔서 감사합니다.");
+			return;
+		}
 	}
 	
 	// 메인 2 - 스테이터스

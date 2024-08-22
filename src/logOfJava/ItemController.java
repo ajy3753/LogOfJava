@@ -111,7 +111,7 @@ public class ItemController {
 		switch(ctgArr[1]) {
 		case "HP" :
 			addStat = player.getJob().getJobHP() + reinforce;
-			player.setHP(addStat);
+			player.getJob().setJobHP(addStat);
 			System.out.println("\n▷ 최대 체력이 " + reinforce + "만큼 상승되었습니다.");
 			break;
 		case "ATK" :
@@ -147,7 +147,7 @@ public class ItemController {
 		for(int i = 0; i < dropStock; i++) {
 			int random = (int)(Math.random() * itemList.size() + 0);
 			playerItem.add(itemList.get(random).itemName);
-			System.out.println("▷ 아이템 < " + itemList.get(random).itemName + " > 을(를) 획득했습니다.\n");
+			System.out.println("▷ 아이템 < " + itemList.get(random).itemName + " > 을(를) 획득했습니다.");
 		}
 		
 		player.setItemList(playerItem);

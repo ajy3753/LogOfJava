@@ -17,7 +17,7 @@ public class GameController {
 	// 새 게임 데이터 생성
 	public void newData(String playerName, String job) {
 		this.player = new Player(playerName, new Job(job));
-		g = new Game(player, 1);
+		this.g = new Game(player, 1);
 	}
 	
 	// 저장된 데이터 검색 (플레이어명)
@@ -40,7 +40,7 @@ public class GameController {
 	public boolean stageProgress() {
 		// 전투 판별
 		int battleOn = (int)(Math.random() * 100 + 1);
-		if(battleOn < player.getLUCK()) {
+		if(battleOn >= player.getLUCK() || g.getStage() == 15) {
 			return true;
 		}
 		else {
@@ -49,11 +49,41 @@ public class GameController {
 	}
 	
 	// 전투 진행
-	public void stageBattle() {
-		// 몹불러오기
+	public boolean stageBattle() {
+		// 전투 시작
+		Battle b = new Battle(player, g.getStage());
+		int dropChance = b.getEnemyList().size();
 		
-		// 공격 커맨드 띄우기
+		while(b.isBattleOn()) {
+			// 현재 턴 정보
+			System.out.println("\n============ " + b.getTurn() + "번째 턴 ============");
+			System.out.println("▷ 플레이어 HP : " + player.getHP() + " / " + player.getJob().getJobHP());
+			System.out.println("▷ 남은 적의 수 : " + b.getEnemyList().size());
+			
+			// 적 정보
+			System.out.println("\n============ 적 정보 ============");
+			b.enemyPrint();
+			
+			// 전투 커맨드
+			b.battleSelect();
+		}
 		
+		switch(b.getResult()) {
+		case "LOSE" :
+			System.out.println("▷ 패배했습니다...");
+			return false;
+		default :
+			System.out.println("▷ 승리했습니다!");
+			
+			// 아이템 드롭
+			int dropRate = (int)(Math.random() * 100 + 1);
+			int dropStock = (int)(Math.random() * dropChance + 1);
+			if((100 - dropRate) <= player.getBONUS()) {
+				ic.itemDrop(player, dropStock);
+			}
+		}
+		
+		return true;
 	}
 	
 	// 휴식 1 - 체력 회복
@@ -156,5 +186,10 @@ public class GameController {
 	// stage 이동
 	public void stageUp() {
 		g.setStage(g.getStage() + 1);
+	}
+	
+	// stage 정보값 반환
+	public int getStage() {
+		return g.getStage();
 	}
 }

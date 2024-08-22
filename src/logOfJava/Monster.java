@@ -3,7 +3,7 @@ package logOfJava;
 public class Monster {
 	// Monster 변수
 	private String monsterName;
-	private int monsterHP;
+	private double monsterHP;
 	private int monsterATK;
 	private int monsterDEF;
 	private int monsterCRI;
@@ -12,7 +12,7 @@ public class Monster {
 	// 기본 생성자
 	public Monster() {}
 	
-	public Monster(String monsterName, int monsterHP, int monsterATK, int monsterDEF, int monsterCRI, String monsterType) {
+	public Monster(String monsterName, double monsterHP, int monsterATK, int monsterDEF, int monsterCRI, String monsterType) {
 		this.monsterName = monsterName;
 		this.monsterHP = monsterHP;
 		this.monsterATK = monsterATK;
@@ -30,11 +30,11 @@ public class Monster {
 		this.monsterName = monsterName;
 	}
 	
-	public int getMonsterHP() {
+	public double getMonsterHP() {
 		return monsterHP;
 	}
 
-	public void setMonsterHP(int monsterHP) {
+	public void setMonsterHP(double monsterHP) {
 		this.monsterHP = monsterHP;
 	}
 
